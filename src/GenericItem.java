@@ -31,8 +31,24 @@ public class GenericItem implements Cloneable {
     }
 
     @Override
+    public int hashCode() {
+
+        Object[] product = {ID, name, price, analog, category};
+
+        int result = 1;
+
+        for (Object element : product)
+            if (element == null) {
+                result = 0;
+            }
+            else result = 31 * result + element.hashCode();
+
+        return result;
+    }
+    @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        if (this.analog == null) return super.clone();
+        return analog.clone();
     }
 
     @Override
