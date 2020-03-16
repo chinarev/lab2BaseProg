@@ -10,6 +10,7 @@ public class Main {
         product1.price = 60;
         product1.printAll();
 
+
         GenericItem product2 = new GenericItem();
         product2.ID = 2;
         product2.name = "Fanta";
@@ -17,27 +18,19 @@ public class Main {
         product2.analog = product1;
         product2.printAll();
 
+
         GenericItem product3 = new GenericItem();
         product3.ID = 3;
         product3.name = "Mars";
         product3.price = 45;
         product3.printAll();
 
-        FoodItem foodItem1 = new FoodItem();
-        foodItem1.ID = 4;
-        foodItem1.name = "juice";
-        foodItem1.price = 90;
-        foodItem1.category = Category.FOOD;
-        foodItem1.dateOfIncome = new Date(2020, 2, 5);
-        foodItem1.expires = 30;
 
-        FoodItem foodItem2 = new FoodItem();
-        foodItem1.ID = 6;
-        foodItem1.name = "cumis";
-        foodItem1.price = 90;
-        foodItem1.category = Category.FOOD;
-        foodItem1.dateOfIncome = new Date(2019, 5, 21);
-        foodItem1.expires = 30;
+        FoodItem foodItem1 = new FoodItem("juice", 90, null, new Date(2020, 2, 5), (short) 30);
+
+
+        FoodItem foodItem2 = new FoodItem("cola", 30, null, new Date(2020, 3, 11), (short) 40);
+
 
         TechicalItem techicalItem1 = new TechicalItem();
         techicalItem1.ID = 5;
@@ -59,6 +52,13 @@ public class Main {
 
         System.out.println("Результат сравнения с клоном: " + foodItem1.equals(foodClone));
         System.out.println("Результат работы методы toString(): " + product1.toString());
-       
+
+
+        //// TASK 3 ////
+        String line = new String("Конфеты ’Маска’;45;120");
+        String[] item_fId = line.split(";");
+
+        FoodItem foodItem3 = new FoodItem(item_fId[0], Float.parseFloat(item_fId[1]), Short.parseShort(item_fId[2]));
+        foodItem3.printAll();
     }
 }

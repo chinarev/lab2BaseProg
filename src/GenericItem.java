@@ -4,6 +4,25 @@ public class GenericItem implements Cloneable {
     public float price; //Цена товара
     public GenericItem analog;
     public Category category = Category.GENERAL;
+    static int currentID = 0;
+
+    public GenericItem(String name, float price, Category category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.ID = GenericItem.currentID++;
+    }
+
+    public GenericItem(String name, float price, GenericItem analog) {
+        this.name = name;
+        this.price = price;
+        this.analog = analog;
+        this.ID = GenericItem.currentID++;
+    }
+
+    public GenericItem() {
+        this.ID = GenericItem.currentID++;
+    }
 
     void printAll() {
         System.out.printf("ID: %d , Name: %-20s , price:%5.2f, category:  %-20s \n", ID, name, price, category);
@@ -40,11 +59,11 @@ public class GenericItem implements Cloneable {
         for (Object element : product)
             if (element == null) {
                 result = 0;
-            }
-            else result = 31 * result + element.hashCode();
+            } else result = 31 * result + element.hashCode();
 
         return result;
     }
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         if (this.analog == null) return super.clone();
@@ -55,7 +74,7 @@ public class GenericItem implements Cloneable {
     public String toString() {
         return "ID " + ID +
                 ", Название " + name +
-                ", Цена " + price  +
+                ", Цена " + price +
                 ", Аналог " + analog +
                 ", Категория " + category;
     }

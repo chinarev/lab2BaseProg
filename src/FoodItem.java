@@ -8,6 +8,23 @@ public class FoodItem extends GenericItem implements Cloneable {
         System.out.printf("ID: %d , Name: %-20s , price:%5.2f, category:  %-20s, Date of income: %tD, expires:%d \n", ID, name, price, category, dateOfIncome, expires);
     }
 
+    public FoodItem(String name, float price, FoodItem analog, Date
+            date, short expires) {
+        this.name = name;
+        this.price = price;
+        this.analog = analog;
+        this.dateOfIncome = date;
+        this.expires = expires;
+    }
+
+    public FoodItem(String name, float price, short expires){
+        this(name, price, null, null, expires);
+    }
+
+    public FoodItem(String name){
+        this(name,  0, null, null, (short) 0);
+    }
+
     @Override
     public boolean equals(Object o) {
         // 1
