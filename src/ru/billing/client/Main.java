@@ -101,8 +101,7 @@ public class Main {
         itemCatalog.printItems();//проверка
 
         ///// TASK 6 /////
-        System.out.println("mem");
-        U1901Main.test();
+
 
 
         CatalogLoader loader2 = new CatalogFileLoader("items.lst");
@@ -110,7 +109,7 @@ public class Main {
         itemCatalog.printItems();//проверка
 
 
-        System.out.print("\nUTF-8:");
+        System.out.println("\nUTF-8:");
         File UTF8 = new File("fileUTF.txt");
         FileInputStream file1 = null;
         try {
@@ -129,10 +128,8 @@ public class Main {
 
 
 
-        System.out.print("\nWindows-1251:");
-        File W1251 = new File("fileWin1251.txt");
-
-        System.getProperty("console.encoding", "utf-8");
+        System.out.println("\nWindows-1251:");
+        File W1251 = new File("mem2.txt");
 
         FileInputStream file2 = null;
         try {
@@ -148,6 +145,10 @@ public class Main {
             e.printStackTrace();
         }
         System.out.println(strW1251);
+
+
+        System.out.println("Потоки:");
+        U1901Main.test();
 
     }
 }
