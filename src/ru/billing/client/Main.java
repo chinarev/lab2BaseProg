@@ -1,12 +1,19 @@
 package ru.billing.client;
 
+import ru.billing.exceptions.CatalogLoadException;
+import ru.billing.exceptions.ItemAlreadyExistsException;
 import ru.billing.stocklist.*;
+import ru.sync.U1901Main;
 
-import java.sql.SQLOutput;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) throws CloneNotSupportedException, ItemAlreadyExistsException, CatalogLoadException {
 
         GenericItem product1 = new GenericItem();
         product1.setID(1);
@@ -74,8 +81,8 @@ public class Main {
         itemCatalog.addItem(foodItem3);
         itemCatalog.addItem(product1);
         itemCatalog.addItem(product2);
-        itemCatalog.addItem(product3);
-        itemCatalog.addItem(foodClone);
+        //itemCatalog.addItem(product3);
+        //itemCatalog.addItem(foodClone);
 
         long begin = new Date().getTime();
 
@@ -92,5 +99,55 @@ public class Main {
         CatalogLoader loader = new CatalogStubLoader();
         loader.load(itemCatalog);
         itemCatalog.printItems();//проверка
+
+        ///// TASK 6 /////
+        System.out.println("mem");
+        U1901Main.test();
+
+
+        CatalogLoader loader2 = new CatalogFileLoader("items.lst");
+        loader2.load(itemCatalog);
+        itemCatalog.printItems();//проверка
+
+
+        System.out.print("\nUTF-8:");
+        File UTF8 = new File("fileUTF.txt");
+        FileInputStream file1 = null;
+        try {
+            file1 = new FileInputStream(UTF8);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Scanner scanner = new Scanner(file1);
+        String strUTF8 = null;
+        try {
+            strUTF8 = new String(scanner.nextLine().getBytes("UTF-8"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(strUTF8);
+
+
+
+        System.out.print("\nWindows-1251:");
+        File W1251 = new File("fileWin1251.txt");
+
+        System.getProperty("console.encoding", "utf-8");
+
+        FileInputStream file2 = null;
+        try {
+            file2 = new FileInputStream(W1251);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Scanner scanner2 = new Scanner(file2);
+        String strW1251 = null;
+        try {
+            strW1251 = new String(scanner2.nextLine().getBytes("Windows-1251"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(strW1251);
+
     }
 }
